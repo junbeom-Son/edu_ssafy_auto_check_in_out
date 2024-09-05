@@ -32,5 +32,6 @@ checkout_now.exe 클릭
 자동으로 퇴실체크가 되고 컴퓨터 종료 -> 조퇴 시 사용
 
 # 유의 사항
-본인 컴퓨터의 Chrome 버전과 해당 패키지에 있는 Chrome Driver의 버전이 일치하지 않는 경우
-Chrome Driver의 버전을 맞춰서 새로 설치 필요
+- 본인 컴퓨터의 Chrome 버전과 해당 패키지에 있는 Chrome Driver의 버전이 일치하지 않는 경우 Chrome Driver의 버전을 맞춰서 새로 설치 필요
+- 실행파일(.exe)이 Chrome Driver와 같은 경로상에 존재해야 실행 가능
+- 수정 필요 시 src 디렉토리 내부의 소스코드를 직접 변경할 수 있으며 소스코드 직접 실행시에도 Chrome Driver파일들과 같은 경로에서 실행 필수(혹은 Chrome driver 경로 설정)
