@@ -51,15 +51,12 @@ while True:
     print(f'퇴실 체크 시간: {check_out_time}')
     hour, minute = check_out_time.split(":")
     hour = int(hour)
-    # if hour < 18:
-    #     print('18시 이전에 퇴실 체크를 시도하였습니다. 다시 퇴실체크를 진행합니다.')
-    # else:
-    #     print('정상적으로 퇴실체크 되었습니다.')
-    #     break
-    if int(minute) > 30:
+    if hour < 18:
+        print('18시 이전에 퇴실 체크를 시도하였습니다. 다시 퇴실체크를 진행합니다.')
+    else:
         print('정상적으로 퇴실체크 되었습니다.')
         break
-
+    
 # Windows에서 컴퓨터 종료
 os.system("shutdown /s /t 0")
 
