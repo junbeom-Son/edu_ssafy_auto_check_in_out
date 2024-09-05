@@ -13,6 +13,8 @@ SSAFY 교육생들의 로그인 로그아웃을 조금 더 편하게 하기 위�
 
 input_userinfo.exe 클릭
 아이디와 비밀번호를 입력해주세요.
+![image](https://github.com/user-attachments/assets/a3c592bb-2e4c-4939-89aa-22adf5ac102d)
+
 
 ## 입실 체크
 
