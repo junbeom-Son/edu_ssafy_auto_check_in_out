@@ -1,5 +1,6 @@
 import os
 import tkinter as tk
+import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -50,12 +51,13 @@ def checkout(root, email, password, termination_option, checkout_time):
         
         hour, minute = tried_checkout_time.split(":")
         hour = int(hour)
-        
+        print(f'퇴실 체크 시간: {tried_checkout_time}')
         if hour < checkout_time:
             print(f'{checkout_time}시 이전에 퇴실 체크를 시도하였습니다. 다시 퇴실체크를 진행합니다.')
             
         else:
             print('정상적으로 퇴실체크 되었습니다.')
+            time.sleep(1)
             break
     
     if termination_option:
