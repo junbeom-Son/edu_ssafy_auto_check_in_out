@@ -52,4 +52,7 @@ checkout.exe 클릭
 - 수정 필요 시 src 디렉토리 내부의 소스코드를 직접 변경할 수 있으며 소스코드 직접 실행시에도 Chrome Driver파일들과 같은 경로에서 실행 필수(혹은 Chrome driver 경로 설정)
 
 # Contributor
-이찬진(서울 11기) https://github.com/jinchandol
+|[이찬진](https://github.com/jinchandol)|
+|:---:|
+|<img src="https://github.com/user-attachments/assets/27aebf0b-5fe6-45ce-9061-2ce1fbc21401" width="150" height="200">|
+|서울 11기|
