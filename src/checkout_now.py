@@ -51,7 +51,7 @@ check_out_time = logout(userId, userPassword, service)
 print(f'퇴실 체크 시간: {check_out_time}')
 
 # 페이지 로딩 대기
-time.sleep(3)
+time.sleep(1)
     
 # Windows에서 컴퓨터 종료
 os.system("shutdown /s /t 0")
