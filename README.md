@@ -2,6 +2,12 @@
 
 SSAFY 교육생들의 로그인 로그아웃을 조금 더 편하게 하기 위함
 
+# 유의 사항
+
+- 본인 컴퓨터의 Chrome 버전과 해당 패키지에 있는 Chrome Driver의 버전이 일치하지 않는 경우 Chrome Driver의 버전을 맞춰서 새로 설치 필요
+- 실행파일(.exe)이 Chrome Driver와 같은 경로상에 존재해야 실행 가능
+- 수정 필요 시 src 디렉토리 내부의 소스코드를 직접 변경할 수 있으며 소스코드 직접 실행시에도 Chrome Driver파일들과 같은 경로에서 실행 필수(혹은 Chrome driver 경로 설정)
+
 # 기능
 
 - 한 번의 클릭으로 자동 입실 체크
@@ -22,7 +28,7 @@ register_userinfo.exe 클릭
 
 ## 입실 체크
 
-auto_login.exe 클릭
+checkin.exe 클릭
 가만히 기다리면 크롬이 켜지고 알아서 입실체크 진행 후 프로그램 종료
 
 ## 퇴실 체크 - 버전 3개
@@ -45,11 +51,6 @@ checkout.exe 클릭
   ex) 18시를 선택하고 17시 58분에 프로그램을 실행하면 18시까지 반복 퇴실체크 진행 -> 18시가 기록되는 순간 프로그램 종료
 - 즉시 : 현재시간과 무관하게 퇴실 체크 한 번 진행(조퇴 시 사용)
 
-# 유의 사항
-
-- 본인 컴퓨터의 Chrome 버전과 해당 패키지에 있는 Chrome Driver의 버전이 일치하지 않는 경우 Chrome Driver의 버전을 맞춰서 새로 설치 필요
-- 실행파일(.exe)이 Chrome Driver와 같은 경로상에 존재해야 실행 가능
-- 수정 필요 시 src 디렉토리 내부의 소스코드를 직접 변경할 수 있으며 소스코드 직접 실행시에도 Chrome Driver파일들과 같은 경로에서 실행 필수(혹은 Chrome driver 경로 설정)
 
 # Contributor
 |[이찬진](https://github.com/jinchandol)|
