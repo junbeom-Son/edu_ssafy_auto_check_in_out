@@ -48,17 +48,21 @@ def checkout_on_edu_ssafy(service, termination_option):
     check_out_button = driver.find_element(By.ID, 'checkOut')
     check_out_time = check_out_button.find_element(By.CSS_SELECTOR, '.t1').text
     driver.quit()
-        
-    print(f'퇴실 체크 시간: {check_out_time}')
-            
-    print('정상적으로 퇴실체크 되었습니다.')
-    time.sleep(1)
-    
+
+    result_window = tk.Tk()
+    result_window.title('퇴실 체크 결과')
+    result_window.geometry('500x500')
+
+    result_text = f'퇴실 체크 시간: {check_out_time}\n정상적으로 퇴실체크 되었습니다.\n이 창은 1초 후 종료됩니다.'
+    result_label = tk.Label(result_window, text= result_text)
+    result_label.pack()
+
+    result_window.after(1000, result_window.destroy)
+    result_window.mainloop()
+
     if termination_option:
         # Windows에서 컴퓨터 종료
         os.system("shutdown /s /t 0")
-
-    sys.exit()
 
 def get_server_time(service):
     time_url = 'https://time.navyism.com/?host=edu.ssafy.com'
@@ -88,6 +92,7 @@ def countdown(left_seconds, time_label, root, service, termination_option):
         time_label.config(text=convert_seconds_to_full_time(left_seconds))
         root.after(1000, countdown, left_seconds - 1, time_label, root, service, termination_option)
     else:
+        root.destroy()
         checkout_on_edu_ssafy(service, termination_option)
 
 def show_left_time(left_seconds, service, termination_option):
