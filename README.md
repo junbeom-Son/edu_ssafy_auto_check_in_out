@@ -39,7 +39,8 @@ checkout.exe 클릭
 유저 정보가 없는 경우 register_userinfo.exe를 실행하라는 경고 창이 뜹니다.
 
 ### 퇴실 옵션 선택
-![시간 지정](https://github.com/user-attachments/assets/6350cd7b-b54d-44b2-b77f-9de5d2c28418)
+![checkout 실행](https://github.com/user-attachments/assets/6498a8be-6256-490e-8924-ffe221c02d9e)
+
 (지정된 시간까지 반복 퇴실 진행)
 
 1. 퇴실 체크 이후 컴퓨터 종료 여부 지정(default 즉시 종료)
