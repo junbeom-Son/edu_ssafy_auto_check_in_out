@@ -114,7 +114,6 @@ def checkout(root, termination_option, checkout_time):
     checkout_time_of_seconds = checkout_time * 3600
 
     left_seconds = checkout_time_of_seconds - current_time_of_seconds
-    left_seconds = 5
 
     show_left_time(max(left_seconds, 0), service, termination_option)
 
