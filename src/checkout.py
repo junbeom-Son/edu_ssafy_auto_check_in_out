@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 import time
+import sys
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -8,13 +9,13 @@ from selenium.webdriver.common.by import By
 from tkinter import messagebox
 
 def get_user_info():
-    with open('login_information.txt', 'r', encoding='utf-8') as file:
+    with open('../login_information.txt', 'r', encoding='utf-8') as file:
         content = file.read()
     
     userEmail, userPassword = content.split()
     return userEmail, userPassword
 
-def checkout_on_edu_ssafy(service):
+def checkout_on_edu_ssafy(service, termination_option):
     # Chrome 드라이버 실행
     driver = webdriver.Chrome(service=service)
 
@@ -46,7 +47,18 @@ def checkout_on_edu_ssafy(service):
     check_out_button = driver.find_element(By.ID, 'checkOut')
     check_out_time = check_out_button.find_element(By.CSS_SELECTOR, '.t1').text
     driver.quit()
-    return check_out_time
+        
+    hour, minute = check_out_time.split(":")
+    print(f'퇴실 체크 시간: {check_out_time}')
+            
+    print('정상적으로 퇴실체크 되었습니다.')
+    time.sleep(1)
+    
+    if termination_option:
+        # Windows에서 컴퓨터 종료
+        os.system("shutdown /s /t 0")
+
+    sys.exit()
 
 def get_server_time(service):
     time_url = 'https://time.navyism.com/?host=edu.ssafy.com'
@@ -71,12 +83,14 @@ def convert_seconds_to_full_time(seconds):
     seconds %= 60
     return f'{hour}시간 {minute}분 {seconds}초'
 
-def countdown(left_seconds, time_label, root):
+def countdown(left_seconds, time_label, root, service, termination_option):
     if left_seconds > 0:
         time_label.config(text=convert_seconds_to_full_time(left_seconds))
-        root.after(1000, countdown, left_seconds - 1, time_label, root)
+        root.after(1000, countdown, left_seconds - 1, time_label, root, service, termination_option)
+    else:
+        checkout_on_edu_ssafy(service, termination_option)
 
-def show_left_time(left_seconds):
+def show_left_time(left_seconds, service, termination_option):
     root = tk.Tk()
     root.geometry('300x200')
     root.title('퇴실까지 남은 시간')
@@ -84,14 +98,14 @@ def show_left_time(left_seconds):
     title_label.pack(pady=10)
     left_time_label = tk.Label(root, text = convert_seconds_to_full_time(left_seconds))
     left_time_label.pack(pady=10)
-    countdown(left_seconds, left_time_label, root)
+    countdown(left_seconds, left_time_label, root, service, termination_option)
 
 
 def checkout(root, termination_option, checkout_time):
 
     root.destroy()
     # 크롬 경로 설정
-    driver_path = 'chromedriver.exe'
+    driver_path = '../chromedriver.exe'
     service = Service(driver_path)
 
     # 현재 시간을 초로 환산한 시간
@@ -101,30 +115,13 @@ def checkout(root, termination_option, checkout_time):
     checkout_time_of_seconds = checkout_time * 3600
 
     left_seconds = checkout_time_of_seconds - current_time_of_seconds
+    left_seconds = 5
 
-    show_left_time(max(left_seconds, 0))
-
-    while True:
-        tried_checkout_time = checkout_on_edu_ssafy(service)
-        
-        hour, minute = tried_checkout_time.split(":")
-        hour = int(hour)
-        print(f'퇴실 체크 시간: {tried_checkout_time}')
-        if hour < checkout_time:
-            print(f'{checkout_time}시 이전에 퇴실 체크를 시도하였습니다. 다시 퇴실체크를 진행합니다.')
-            
-        else:
-            print('정상적으로 퇴실체크 되었습니다.')
-            time.sleep(1)
-            break
-    
-    if termination_option:
-        # Windows에서 컴퓨터 종료
-        os.system("shutdown /s /t 0")
+    show_left_time(max(left_seconds, 0), service, termination_option)
 
 def main():
-    login_information_file = 'login_information.txt'
-    register_userinfo_file = 'register_userinfo.exe'
+    login_information_file = '../login_information.txt'
+    register_userinfo_file = '../register_userinfo.exe'
     if not os.path.exists(login_information_file):
         messagebox.showinfo("Alert", f'{login_information_file}가 존재하지 않습니다. {register_userinfo_file}파일을 먼저 실행해 유저 정보를 등록하세요')
         return
