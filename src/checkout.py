@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 from tkinter import messagebox
 
 def get_user_info():
-    with open('../login_information.txt', 'r', encoding='utf-8') as file:
+    with open('login_information.txt', 'r', encoding='utf-8') as file:
         content = file.read()
     
     userEmail, userPassword = content.split()
@@ -110,7 +110,7 @@ def checkout(root, termination_option, checkout_time):
 
     root.destroy()
     # 크롬 경로 설정
-    driver_path = '../chromedriver.exe'
+    driver_path = 'chromedriver.exe'
     service = Service(driver_path)
 
     # 현재 시간을 초로 환산한 시간
@@ -124,8 +124,8 @@ def checkout(root, termination_option, checkout_time):
     show_left_time(max(left_seconds, 0), service, termination_option)
 
 def main():
-    login_information_file = '../login_information.txt'
-    register_userinfo_file = '../register_userinfo.exe'
+    login_information_file = 'login_information.txt'
+    register_userinfo_file = 'register_userinfo.exe'
     if not os.path.exists(login_information_file):
         messagebox.showinfo("Alert", f'{login_information_file}가 존재하지 않습니다. {register_userinfo_file}파일을 먼저 실행해 유저 정보를 등록하세요')
         return
