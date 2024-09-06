@@ -41,6 +41,13 @@ checkout.exe 클릭
 ### 퇴실 옵션 선택
 ![checkout 실행](https://github.com/user-attachments/assets/6498a8be-6256-490e-8924-ffe221c02d9e)
 
+### 시간 종료 후 퇴실 체크 진행
+![checkout finish](https://github.com/user-attachments/assets/a24b43e2-c78a-4cda-aac2-6f915fb0b11e)
+
+### 퇴실체크 후 결과 화면
+![image](https://github.com/user-attachments/assets/0e14b648-1b42-418e-be40-805279e32b4b)
+
+
 1. 퇴실 체크 이후 컴퓨터 종료 여부 지정(default 즉시 종료)
 - 즉시 종료 : 퇴실 체크가 정상적으로 종료되면 컴퓨터 즉시 종료
 - 종료 안함 : 퇴실 체크가 정상적으로 종료되면 프로그램만 종료
