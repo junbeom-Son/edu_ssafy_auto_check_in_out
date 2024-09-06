@@ -39,12 +39,61 @@ def checkout_on_edu_ssafy(email, password, service):
     driver.quit()
     return check_out_time
 
+def get_server_time(service):
+    time_url = 'https://time.navyism.com/?host=edu.ssafy.com'
+
+    # Chrome 드라이버 실행
+    driver = webdriver.Chrome(service=service)
+
+    # 웹사이트 열기
+    driver.get(time_url)
+
+    time_div = driver.find_element(By.ID, 'time_area')
+    current_time = time_div.text.split()
+    hour = int(current_time[3][:2])
+    minute = int(current_time[4][:2])
+    seconds = int(current_time[5][:2])
+    return hour * 3600 + minute * 60 + seconds
+
+def convert_seconds_to_full_time(seconds):
+    hour = seconds // 3600
+    seconds %= 3600
+    minute = seconds // 60
+    seconds %= 60
+    return f'{hour}시간 {minute}분 {seconds}초'
+
+def countdown(left_seconds, time_label, root):
+    if left_seconds > 0:
+        time_label.config(text=convert_seconds_to_full_time(left_seconds))
+        root.after(1000, countdown, left_seconds - 1, time_label, root)
+
+def show_left_time(left_seconds):
+    root = tk.Tk()
+    root.geometry('300x200')
+    root.title('퇴실까지 남은 시간')
+    title_label = tk.Label(root, text = '퇴실까지 남은 시간')
+    title_label.pack(pady=10)
+    left_time_label = tk.Label(root, text = convert_seconds_to_full_time(left_seconds))
+    left_time_label.pack(pady=10)
+    countdown(left_seconds, left_time_label, root)
+
+
 def checkout(root, email, password, termination_option, checkout_time):
 
     root.destroy()
     # 크롬 경로 설정
     driver_path = 'chromedriver.exe'
     service = Service(driver_path)
+
+    # 현재 시간을 초로 환산한 시간
+    current_time_of_seconds = get_server_time(service)
+
+    # 퇴실 체크 시간을 초로 환산한 시간
+    checkout_time_of_seconds = checkout_time * 3600
+
+    left_seconds = checkout_time_of_seconds - current_time_of_seconds
+
+    show_left_time(max(left_seconds, 0))
 
     while True:
         tried_checkout_time = checkout_on_edu_ssafy(email, password, service)
