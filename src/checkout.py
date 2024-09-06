@@ -48,7 +48,6 @@ def checkout_on_edu_ssafy(service, termination_option):
     check_out_time = check_out_button.find_element(By.CSS_SELECTOR, '.t1').text
     driver.quit()
         
-    hour, minute = check_out_time.split(":")
     print(f'퇴실 체크 시간: {check_out_time}')
             
     print('정상적으로 퇴실체크 되었습니다.')
