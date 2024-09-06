@@ -7,7 +7,14 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from tkinter import messagebox
 
-def checkout_on_edu_ssafy(email, password, service):
+def get_user_info():
+    with open('login_information.txt', 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    userEmail, userPassword = content.split()
+    return userEmail, userPassword
+
+def checkout_on_edu_ssafy(service):
     # Chrome 드라이버 실행
     driver = webdriver.Chrome(service=service)
 
@@ -17,6 +24,8 @@ def checkout_on_edu_ssafy(email, password, service):
     # 로그인 예제 코드 (요소 아이디는 실제 사용 중인 웹사이트에 맞춰 변경해야 함)
     username_input_box = driver.find_element(By.ID, 'userId')
     password_input_box = driver.find_element(By.ID, 'userPwd')
+
+    email, password = get_user_info()
 
     username_input_box.send_keys(email)
     password_input_box.send_keys(password)
@@ -78,7 +87,7 @@ def show_left_time(left_seconds):
     countdown(left_seconds, left_time_label, root)
 
 
-def checkout(root, email, password, termination_option, checkout_time):
+def checkout(root, termination_option, checkout_time):
 
     root.destroy()
     # 크롬 경로 설정
@@ -96,7 +105,7 @@ def checkout(root, email, password, termination_option, checkout_time):
     show_left_time(max(left_seconds, 0))
 
     while True:
-        tried_checkout_time = checkout_on_edu_ssafy(email, password, service)
+        tried_checkout_time = checkout_on_edu_ssafy(service)
         
         hour, minute = tried_checkout_time.split(":")
         hour = int(hour)
@@ -119,11 +128,6 @@ def main():
     if not os.path.exists(login_information_file):
         messagebox.showinfo("Alert", f'{login_information_file}가 존재하지 않습니다. {register_userinfo_file}파일을 먼저 실행해 유저 정보를 등록하세요')
         return
-    
-    with open('login_information.txt', 'r', encoding='utf-8') as file:
-        content = file.read()
-    
-    userEmail, userPassword = content.split()
 
     # 윈도우 생성
     root = tk.Tk()
@@ -156,7 +160,7 @@ def main():
         radio_button.pack(pady=2)
 
     checkout_button = tk.Button(root, text='퇴실 체크', command=lambda: 
-                                checkout(root, userEmail, userPassword, termination_option.get() == termination_options[0], checkout_time.get()))
+                                checkout(root, termination_option.get() == termination_options[0], checkout_time.get()))
     checkout_button.pack(pady=10)
     
     root.mainloop()
