@@ -2,6 +2,7 @@ import tkinter as tk
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
 def convert_seconds_to_full_time(seconds):
     hour = seconds // 3600
@@ -10,7 +11,12 @@ def convert_seconds_to_full_time(seconds):
     seconds %= 60
     return f'{hour}시간 {minute}분 {seconds}초'
 
-def get_server_time(service, chrome_options):
+def get_server_time(service):
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # 크롬을 헤드리스 모드로 실행
+    chrome_options.add_argument("--disable-gpu")  # GPU 사용 중지 (Linux에서 필수)
+    chrome_options.add_argument("--window-size=1920x1080")  # 창 크기를 설정할 수 있음
+
     time_url = 'https://time.navyism.com/?host=edu.ssafy.com'
 
     # Chrome 드라이버 실행

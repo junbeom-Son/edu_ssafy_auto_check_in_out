@@ -6,7 +6,6 @@ import login_util
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from tkinter import messagebox
 
@@ -66,7 +65,7 @@ def checkout(root, termination_option, checkout_time):
     service = Service(driver_path)
 
     # 현재 시간을 초로 환산한 시간
-    current_time_of_seconds = time_util.get_server_time(service, chrome_options)
+    current_time_of_seconds = time_util.get_server_time(service)
 
     # 퇴실 체크 시간을 초로 환산한 시간
     checkout_time_of_seconds = checkout_time * 3600
@@ -129,8 +128,4 @@ def main():
     
     root.mainloop()
 
-chrome_options = Options()
-chrome_options.add_argument("--headless") # 크롬을 헤드리스 모드로 실행
-chrome_options.add_argument("--disable-gpu")  # GPU 사용 중지 (Linux에서 필수)
-chrome_options.add_argument("--window-size=1920x1080")  # 창 크기를 설정할 수 있음
 main()
