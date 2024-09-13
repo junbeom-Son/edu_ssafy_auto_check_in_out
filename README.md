@@ -31,6 +31,14 @@ register_userinfo.exe 클릭
 
 checkin.exe 클릭
 가만히 기다리면 크롬이 켜지고 알아서 입실체크 진행 후 프로그램 종료
+8시 30분 이전인 경우, 8시 30분까지 대기 후 입실 진행
+
+## 입실 체크 시작 프로그램 등록
+![시작 프로그램 등록](https://github.com/user-attachments/assets/48cbd28f-90c1-4f15-8cd8-2c9a929354b4)
+
+create_shortcut.exe 클릭
+시작 프로그램으로 입실 체크 프로그램 자동 등록
+
 
 ## 퇴실 체크 - 버전 3개
 checkout.exe 클릭
