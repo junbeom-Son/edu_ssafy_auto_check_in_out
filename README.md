@@ -69,5 +69,5 @@ checkout.exe 클릭
 # Contributor
 |[이찬진](https://github.com/jinchandol)|[김혜인](https://github.com/meinnn)|
 |:---:|:---:|
-|<img src="https://github.com/user-attachments/assets/27aebf0b-5fe6-45ce-9061-2ce1fbc21401" width="150" height="200">|<img src="https://github.com/user-attachments/assets/ffad834a-331f-4e9e-908c-2957173d4a8c" width="150" height="200">|
+|<img src="https://github.com/user-attachments/assets/27aebf0b-5fe6-45ce-9061-2ce1fbc21401" width="150" height="200">|<img src="https://github.com/user-attachments/assets/ffad834a-331f-4e9e-908c-2957173d4a8c" width="150" height="150">|
 |서울 11기|서울 11기|
