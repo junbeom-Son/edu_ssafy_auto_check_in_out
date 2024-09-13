@@ -58,9 +58,8 @@ checkout.exe 클릭
 4. 지정시간이되면 퇴실 체크 진행
 5. 퇴실체크 시간 표시 및 프로그램 종료
 
-
 # Contributor
-|[이찬진](https://github.com/jinchandol)|
-|:---:|
-|<img src="https://github.com/user-attachments/assets/27aebf0b-5fe6-45ce-9061-2ce1fbc21401" width="150" height="200">|
-|서울 11기|
+|[이찬진](https://github.com/jinchandol)|[김혜인](https://github.com/meinnn)|
+|:---:|:---:|
+|<img src="https://github.com/user-attachments/assets/27aebf0b-5fe6-45ce-9061-2ce1fbc21401" width="150" height="200">|<img src="https://github.com/user-attachments/assets/ffad834a-331f-4e9e-908c-2957173d4a8c" width="150" height="200">|
+|서울 11기|서울 11기|
