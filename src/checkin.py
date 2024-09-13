@@ -1,3 +1,6 @@
+import threading
+import tkinter as tk
+
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.service import Service
@@ -6,6 +9,8 @@ from tkinter import messagebox
 
 import time
 import os
+import login_util
+import time_util
 
 def login(driver, userEmail, userPassword):
     login_path = 'https://edu.ssafy.com/comm/login/SecurityLoginForm.do'
@@ -33,23 +38,11 @@ def checked_in(driver):
     except NoSuchElementException:
         return False
 
+def show_message(message, root):
+    messagebox.showinfo("Information", message)
+    root.destroy()
 
-def main():
-    login_information_file = 'login_information.txt'
-    register_userinfo_file = 'register_userinfo.exe'
-    if not os.path.exists(login_information_file):
-        messagebox.showinfo("Alert", f'{login_information_file}가 존재하지 않습니다. {register_userinfo_file}파일을 먼저 실행해 유저 정보를 등록하세요')
-        return
-    
-    with open('login_information.txt', 'r', encoding='utf-8') as file:
-        content = file.read()
-    
-    userEmail, userPassword = content.split()
-
-    # 크롬 경로 설정
-    driver_path = 'chromedriver.exe'
-    service = Service(driver_path)
-
+def checkin(service, userEmail, userPassword, register_userinfo_file):
     # Chrome 드라이버 실행
     driver = webdriver.Chrome(service=service)
 
@@ -62,19 +55,60 @@ def main():
         return
 
     if checked_in(driver):
-        messagebox.showinfo("Information", '이미 입실 체크 했습니다.')
+        tmp_root = tk.Tk()
+        tmp_root.after(0, lambda: show_message('이미 입실 체크 했습니다.', tmp_root))
+
+        tmp_root.mainloop()
         return
-    
+
     # 입실 체크 버튼 클릭
     try:
         check_in_button = driver.find_element(By.ID, 'checkIn')
         check_in_button.click()
     except NoSuchElementException:
-        messagebox.showinfo("Alert", '입실체크는 강의장에서만 가능합니다.')
+        tmp_root = tk.Tk()
+        tmp_root.after(0, lambda: show_message('입실체크는 강의장에서만 가능합니다.', tmp_root))
+
+        tmp_root.mainloop()
         return
 
     # 페이지 로딩 대기
     time.sleep(1)
     messagebox.showinfo("Information", '정상적으로 로그인 되었습니다.')
+
+def main():
+    login_information_file = 'login_information.txt'
+    register_userinfo_file = 'register_userinfo.exe'
+    if not os.path.exists(login_information_file):
+        messagebox.showinfo("Alert", f'{login_information_file}가 존재하지 않습니다. {register_userinfo_file}파일을 먼저 실행해 유저 정보를 등록하세요')
+        return
+
+    userEmail, userPassword = login_util.get_user_info()
+
+    # 크롬 경로 설정
+    driver_path = 'chromedriver.exe'
+    service = Service(driver_path)
+
+    # 현재 시간을 초로 환산한 시간
+    current_time_of_seconds = time_util.get_server_time(service)
+
+    # 입실 체크 시간을 초로 환산한 시간
+    checkout_time_of_seconds = 8 * 3600 + 1800 # 8시 30분
+
+    left_seconds = checkout_time_of_seconds - current_time_of_seconds
+
+    # 이벤트 객체 생성
+    show_left_time_event = threading.Event()
+
+    # 카운트다운을 별도 스레드에서 실행
+    show_left_time_thread = threading.Thread(target=time_util.show_left_time,
+                                             args=(max(left_seconds, 0), show_left_time_event))
+    show_left_time_thread.start()
+
+    # 카운트다운이 끝날 때까지 대기
+    show_left_time_event.wait()
+
+    # 카운트다운 완료 후 로직 실행
+    checkin(service, userEmail, userPassword, register_userinfo_file)
 
 main()
